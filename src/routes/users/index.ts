@@ -25,6 +25,5 @@ router.get(path, async (req, res) => {
   } catch {
     return res.status(409);
   }
-
   return res.status(201);
 });
