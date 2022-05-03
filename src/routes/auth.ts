@@ -3,24 +3,19 @@ import jwt from "jsonwebtoken";
 import { Router } from "express";
 import { UserModel } from "../models/user";
 import { jwtSecret } from "../libs/config";
+import { getUser } from "../libs/auth";
 
 export interface SignInInfo {
   email: string;
   password: string;
 }
 
-function isSignInInfo(info: SignInInfo): info is SignInInfo {
-  return !!info && !!info.email && !!info.password;
+export interface Credential {
+  credential: string;
 }
 
-async function isAuth(credential: string) {
-  let id: string | jwt.JwtPayload;
-  try {
-    id = jwt.verify(credential, jwtSecret);
-  } catch {
-    return false;
-  }
-  return await UserModel.exists({ id });
+function isSignInInfo(info: SignInInfo): info is SignInInfo {
+  return !!info && !!info.email && !!info.password;
 }
 
 const path = "/auth";
@@ -42,8 +37,8 @@ router.post(path, async (req, res) => {
     return res.status(404);
   }
 
-  const credential = jwt.sign(user.id, jwtSecret);
-  return res.status(201).json({ credential });
+  const credential: Credential = { credential: jwt.sign(user.id, jwtSecret) };
+  return res.status(201).json(credential);
 });
 
 router.delete(path, async (req, res) => {
@@ -53,5 +48,5 @@ router.delete(path, async (req, res) => {
 
   console.log(req.headers.authorization);
   const credential = req.headers.authorization.replace("Bearer ", "");
-  return res.status((await isAuth(credential)) ? 200 : 401);
+  return res.status((await getUser(credential)) ? 200 : 401);
 });
