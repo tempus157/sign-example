@@ -25,8 +25,20 @@
 
 <img width="262" alt="스크린샷 2022-05-03 오후 1 23 02" src="https://user-images.githubusercontent.com/49771744/166404427-e9c9f88a-1be5-4abe-a648-90cdfa64d64f.png">
 
-서버로부터 201 리스폰스를 받게 됩니다. 리스폰스와 함께 credential 데이터를 받게 되는데, 클라이언트에서 이 정보를 로컬 스토리지에 보관합니다.
+서버로부터 201 리스폰스를 받게 됩니다. 리스폰스와 함께 JWT로 암호화된 Credential 데이터를 받게 되는데, 클라이언트에서 이 정보를 로컬 스토리지에 보관합니다.
 
 <img width="835" alt="스크린샷 2022-05-03 오후 1 24 15" src="https://user-images.githubusercontent.com/49771744/166404503-ebc6875e-e76b-4304-a3bd-a01abb8a6070.png">
 
-만약 잘못된 이메일이나 비밀번호로
+만약 잘못된 이메일이나 비밀번호로 요청을 보낸다면, 다음과 같이 404 리스폰스를 받게 됩니다. 
+
+<img width="334" alt="스크린샷 2022-05-03 오후 1 25 24" src="https://user-images.githubusercontent.com/49771744/166404553-864f88c8-04f6-4ffd-87ef-dbfb48b11f5e.png">
+
+## 로그아웃
+
+Authorization 헤더에 저장해둔 Credential을 담아 요청합니다. 
+
+<img width="868" alt="스크린샷 2022-05-03 오후 1 27 01" src="https://user-images.githubusercontent.com/49771744/166404641-7bdac6d8-af05-40d4-b63c-ed30eae0532d.png">
+
+서버로부터 200 리스폰스를 받게 됩니다. 이후 클라이언트는 로컬 스토리지에서 Credential 정보를 제거하게 됩니다.
+
+<img width="334" alt="스크린샷 2022-05-03 오후 1 27 49" src="https://user-images.githubusercontent.com/49771744/166404684-e112fe8b-5df2-4b5c-889d-52ade86d6439.png">
