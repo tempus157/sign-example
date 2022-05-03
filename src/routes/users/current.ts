@@ -11,13 +11,13 @@ export interface UserInfo {
 
 router.get(path, async (req, res) => {
   if (!req.headers.authorization) {
-    return res.status(400);
+    return res.status(400).json();
   }
 
   const credential = req.headers.authorization.replace("Bearer ", "");
   const user = await getUser(credential);
   if (!user) {
-    return res.status(401);
+    return res.status(401).json();
   }
 
   const userInfo: UserInfo = { email: user.email, name: user.name };
@@ -26,20 +26,20 @@ router.get(path, async (req, res) => {
 
 router.delete(path, async (req, res) => {
   if (!req.headers.authorization) {
-    return res.status(400);
+    return res.status(400).json();
   }
 
   const credential = req.headers.authorization.replace("Bearer ", "");
   const user = await getUser(credential);
   if (!user) {
-    return res.status(401);
+    return res.status(401).json();
   }
 
   try {
-    user.delete();
-    await user.save();
-  } catch {
-    return res.status(404);
+    await user.delete();
+  } catch (err) {
+    console.error(err);
+    return res.status(409).json();
   }
-  return res.status(200);
+  return res.status(200).json();
 });

@@ -24,17 +24,17 @@ export const router = Router();
 router.post(path, async (req, res) => {
   const info = req.body;
   if (!isSignInInfo(info)) {
-    return res.status(400);
+    return res.status(400).json();
   }
 
   const user = await UserModel.findOne({ email: info.email });
   if (!user) {
-    return res.status(404);
+    return res.status(404).json();
   }
 
   const isMatch = await bcrypt.compare(info.password, user.password);
   if (!isMatch) {
-    return res.status(404);
+    return res.status(404).json();
   }
 
   const credential: Credential = { credential: jwt.sign(user.id, jwtSecret) };
@@ -43,10 +43,10 @@ router.post(path, async (req, res) => {
 
 router.delete(path, async (req, res) => {
   if (!req.headers.authorization) {
-    return res.status(400);
+    return res.status(400).json();
   }
 
   console.log(req.headers.authorization);
   const credential = req.headers.authorization.replace("Bearer ", "");
-  return res.status((await getUser(credential)) ? 200 : 401);
+  return res.status((await getUser(credential)) ? 200 : 401).json();
 });

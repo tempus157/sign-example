@@ -14,16 +14,16 @@ function isUserInfo(info: UserInfo): info is UserInfo {
 const path = "/users";
 export const router = Router();
 
-router.get(path, async (req, res) => {
+router.post(path, async (req, res) => {
   const info = req.body;
   if (!isUserInfo(info)) {
-    return res.status(400);
+    return res.status(400).json();
   }
 
   try {
     await UserModel.create({ ...info });
   } catch {
-    return res.status(409);
+    return res.status(409).json();
   }
-  return res.status(201);
+  return res.status(201).json();
 });
