@@ -46,7 +46,6 @@ router.delete(path, async (req, res) => {
     return res.status(400).json();
   }
 
-  console.log(req.headers.authorization);
   const credential = req.headers.authorization.replace("Bearer ", "");
   return res.status((await getUser(credential)) ? 200 : 401).json();
 });
