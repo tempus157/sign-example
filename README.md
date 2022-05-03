@@ -10,7 +10,7 @@
 
 <img width="268" alt="스크린샷 2022-05-03 오후 1 17 13" src="https://user-images.githubusercontent.com/49771744/166404078-8620c374-9427-4f46-89a2-8b2b40225fe8.png">
 
-서버로부터 201 리스폰스를 받게 됩니다. MongoDB에 암호화된 비밀번호와 함께 데이터가 생성된 것을 확인하실 수 있습니다.
+서버로부터 201 리스폰스를 받게 됩니다. 데이터베이스에 암호화된 비밀번호와 함께 데이터가 생성된 것을 확인하실 수 있습니다.
 
 <img width="333" alt="스크린샷 2022-05-03 오후 1 18 13" src="https://user-images.githubusercontent.com/49771744/166404123-39c57413-5542-4309-858d-5a9a53372675.png">
 <img width="484" alt="스크린샷 2022-05-03 오후 1 19 06" src="https://user-images.githubusercontent.com/49771744/166404172-ba090167-44d9-4677-ab44-1fff4de43d7d.png">
@@ -42,3 +42,31 @@ Authorization 헤더에 저장해둔 Credential을 담아 요청합니다.
 서버로부터 200 리스폰스를 받게 됩니다. 이후 클라이언트는 로컬 스토리지에서 Credential 정보를 제거하게 됩니다.
 
 <img width="334" alt="스크린샷 2022-05-03 오후 1 27 49" src="https://user-images.githubusercontent.com/49771744/166404684-e112fe8b-5df2-4b5c-889d-52ade86d6439.png">
+
+만약 잘못된 헤더와 함께 요청을 보낸다면, 다음과 같이 401 리스폰스를 받게 됩니다. 
+
+<img width="334" alt="스크린샷 2022-05-03 오후 1 28 51" src="https://user-images.githubusercontent.com/49771744/166404740-bf542ade-b336-41ec-8e0a-7a5cf58e46c9.png">
+
+## 유저 가져오기
+
+Authorization 헤더에 저장해둔 Credential을 담아 요청합니다. 
+
+<img width="864" alt="스크린샷 2022-05-03 오후 1 29 51" src="https://user-images.githubusercontent.com/49771744/166404796-5e7c073e-7920-4019-8746-f9cbe256c3d9.png">
+
+서버로부터 200 리스폰스를 받게 됩니다. 리스폰스에는 유저의 이메일, 이름이 바디에 담겨 옵니다.
+
+<img width="333" alt="스크린샷 2022-05-03 오후 1 30 34" src="https://user-images.githubusercontent.com/49771744/166404835-44d60add-cef8-4259-a70f-732f05b24e02.png">
+
+만약 잘못된 헤더와 함께 요청을 보낸다면, 로그아웃에서와 같은 401 리스폰스를 받게 됩니다.
+
+## 회원 탈퇴
+
+Authorization 헤더에 저장해둔 Credential을 담아 요청합니다. 
+
+<img width="864" alt="스크린샷 2022-05-03 오후 1 31 24" src="https://user-images.githubusercontent.com/49771744/166404874-a808811c-aa6c-44c8-bc29-561ed61f8f4e.png">
+
+서버로부터 200 리스폰스를 받게 됩니다. 데이터베이스에서 해당 회원의 정보가 제거됩니다.
+
+<img width="331" alt="스크린샷 2022-05-03 오후 1 31 34" src="https://user-images.githubusercontent.com/49771744/166404882-23cac853-0053-43b3-b98d-5a2eb3e8d70f.png">
+
+만약 존재하지 않는 유저의 Credential이나 잘못된 헤더와 함께 요청을 보낸다면, 로그아웃에서와 같은 401 리스폰스를 받게 됩니다.
